@@ -223,11 +223,30 @@
     });
   }
 
+  function ensureLoader() {
+    if (document.getElementById("page-loader")) return;
+    const loader = document.createElement("div");
+    loader.id = "page-loader";
+    loader.innerHTML = '<div class="loader-spinner"></div><div class="loader-text mr">दलाल इंटरप्राईजेस, मुरबाड</div>';
+    document.body.prepend(loader);
+  }
+
+  function hideLoader() {
+    const loader = document.getElementById("page-loader");
+    if (!loader) return;
+    loader.classList.add("hidden");
+    setTimeout(() => loader.remove(), 500);
+  }
+
+  ensureLoader();
+
   document.addEventListener("DOMContentLoaded", () => {
     injectChrome();
     initScroll();
     initLightbox();
     initGalleryFilter();
     initContactForm();
+    window.addEventListener("load", hideLoader);
+    setTimeout(hideLoader, 1200);
   });
 })();
